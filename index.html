@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="ruta/a/font-awesome/css/font-awesome.min.css">
+
+  
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <a class="navbar-brand" href="#"><img id="logo" src="assets/img/logo.png" alt=""></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Market</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="views/login.html">Vende Con Nosotros</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categorías
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Moda deportiva</a>
+                        <a class="dropdown-item" href="#">Moda sport</a>
+                        <a class="dropdown-item" href="#">Moda casual</a>
+                        <a class="dropdown-item" href="#">Moda de alta costura</a>
+                        <a class="dropdown-item" href="#">Zapatos</a>
+                        <a class="dropdown-item" href="#">Accesorios</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" id="buscar">
+                <input class="form-control me-2" type="search" placeholder="Buscar Producto" aria-label="Search">
+                <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+              </form>
+        </div>
+    </nav>
+
+   <!-- Botón "Vende con nosotros" en la esquina inferior derecha de la pantalla -->
+    <div class="position-fixed" style="bottom: 20px; right: 20px;">
+        <a class="btn-vender" href="#tiendas"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-in-up" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3.5 10a.5.5 0 0 1-.5-.5v-8a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 0 0 1h2A1.5 1.5 0 0 0 14 9.5v-8A1.5 1.5 0 0 0 12.5 0h-9A1.5 1.5 0 0 0 2 1.5v8A1.5 1.5 0 0 0 3.5 11h2a.5.5 0 0 0 0-1z"/>
+            <path fill-rule="evenodd" d="M7.646 4.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V14.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708z"/>
+          </svg></a>
+    </div>
+
+    <!-- Sección de banners publicitarios -->
+
+
+    <div id="carouselExampleCaptions" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="assets/img/banner1.jpg" class="d-block w-100" style="height: 500px;" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>First slide label</h5>
+              <p>Some representative placeholder content for the first slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="assets/img/banner3.png" class="d-block w-100"  style="height: 500px;" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Second slide label</h5>
+              <p>Some representative placeholder content for the second slide.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="assets/img/baner2.jpg" class="d-block w-100"  style="height: 500px;" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Third slide label</h5>
+              <p>Some representative placeholder content for the third slide.</p>
+            </div>
+          </div>
+          
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+
+
+      
+      <div class="container mt-4" id="tiendas">
+        <h1>Tiendas Aliadas</h1>
+        <div class="d-flex flex-wrap align-items-center">
+            <div class="tienda m-2">
+                <a href="https://www.ela.com.co/"><img src="assets/img/ela.png"  alt="Tienda 1"></a>
+            </div>
+            
+            <div class="tienda m-2">
+               <a href="https://www.koaj.co/"><img src="assets/img/koaj.png"  alt="Tienda 2"></a>  
+                
+            </div>
+            
+            <div class="tienda m-2">
+               <a href="https://www.totto.com/"><img src="assets/img/totto.png" alt="Tienda 3"></a> 
+                
+            </div>
+            
+            <div class="tienda m-2">
+               <a href="https://roottcostore.com/"><img src="assets/img/Root.png"  alt="Tienda 4">
+               </a> 
+            </div>
+            
+            <div class="tienda m-2">
+                <a href="https://www.bangbangshoes.com/"><img src="assets/img/bang.png"  alt="Tienda 5"></a> 
+
+            </div>
+            <div class="tienda m-2">
+               <a href="https://www.quest.com.co/"><img src="assets/img/quest.webp"  alt="Tienda 5"></a> 
+
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Sección de Más Vendidos -->
+    <div class="container mt-4">
+        <h2>Más Vendidos</h2>
+        <div class="row">
+           <!-- Repite este bloque para cada producto -->
+           <div class="col-md-3 mb-3">
+            <div class="card" style="text-align: center;">
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="assets/img/Saco-Naranja-Hombre-Luna-Estampada-A.png" class="d-block w-100" alt="Imagen 1">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets/img/saconaranja2.png" class="d-block w-100" alt="Imagen 2">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="assets/img/saconaranja3.webp" class="d-block w-100" alt="Imagen 3">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Siguiente</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Saco Naranja Hombre Luna Estampada</h5>
+                    <p class="card-text">Santander de Quilichao</p>
+                    <p class="card-text">Precio: $125.000</p>
+                    <a href="views/producto.html" class="btn btn-primary" id="verproducto">Ver Producto</a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+    <!-- Caategorias -->
+  
+    <div class="container">
+        <h2>Categorías</h2>
+
+        <div class="cate">
+
+            <a class="categoria" href="" style="background-image: url('assets/img/deportiva.jpg');">
+                <div>
+                    <h5>Deportiva</h5>
+                </div>
+
+            </a>
+
+            <a class="categoria" href="" style="background-image: url('assets/img/formal.jpg');">
+                <div>
+                    <h5>Formal</h5>
+                </div>
+            </a>
+            
+            <a class="categoria" href="" style="background-image: url('assets/img/casual.webp');">
+                <div>
+                    <h5>Casual</h5>
+                </div>
+            </a>
+            <a class="categoria" href="" style="background-image: url('assets/img/infantil.webp');">
+                <div>
+                    <h5>Infantil</h5>
+                </div>
+            </a>
+            <a class="categoria" href="" style="background-image: url('assets/img/playa.jpg');">
+                <div>
+                    <h5>Para la playa</h5>
+                </div>
+            </a>
+            
+            <!-- Repite este bloque para cada categoría -->
+            <a class="categoria" href="" style="background-image: url('assets/img/alta_costura.jpg');">
+                <div>
+                    <h5>Alta Costura</h5>
+                </div>
+            </a>
+            
+            <a class="categoria" href="" style="background-image: url('assets/img/zapatos.jpg');">
+                <div>
+                    <h5>Zapatos</h5>
+                </div>
+            </a>
+            
+            <a class="categoria" href="" style="background-image: url('assets/img/accesorios.jpg');">
+                <div>
+                    <h5>Accesorios</h5>
+                </div>
+            </a>
+            <!-- Repite este bloque para cada categoría -->
+        </div>
+    </div>
+    
+        
+    
+
+    <!-- Cards de productos -->
+    <div class="container mt-4">
+        <h2>Productos</h2>
+       
+        <div class="product">
+             <!-- Repite este bloque para cada producto -->
+             <div class="col-md-3 mb-3">
+                <div class="card" style="text-align: center;">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="assets/img/Saco-Naranja-Hombre-Luna-Estampada-A.png" class="d-block w-100" alt="Imagen 1">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="assets/img/saconaranja2.png" class="d-block w-100" alt="Imagen 2">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="assets/img/saconaranja3.webp" class="d-block w-100" alt="Imagen 3">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Saco Naranja Hombre Luna Estampada</h5>
+                        <p class="card-text">Santander de Quilichao</p>
+                        <h4 class="card-text">$125.000</h4>
+                        <a href="views/producto.html" class="btn btn-primary" id="verproducto">Ver Producto</a>
+                    </div>
+                </div>
+               <!-- final card-->
+        </div>
+        
+        </div>
+        
+        </div>
+    </div>
+    
+
+    <!-- Pie de página -->
+    <footer >
+        <div class="row bg-light" id="contenedor"> <!-- Corrected the class placement -->
+          
+          <div class="col-md-3">
+            <h5>Quienes somos</h5>
+            <ul class="list-unstyled">
+              <li><a href="#">Reseña</a></li>
+              <li><a href="#">Vende Con Nosotros</a></li> <!-- Corrected the capitalization -->
+              <li><a href="#">Por qué The Closet?</a></li> <!-- Corrected the accent mark -->
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <h5>Ayuda</h5>
+            <ul class="list-unstyled">
+              <li><a href="#">Envíos</a></li> <!-- Corrected the accent mark -->
+              <li><a href="#">Preguntas frecuentes</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <h5>Contacto</h5>
+            <ul class="list-unstyled">
+              <li><a href="#">+57 321 566 7834</a></li>
+              <li><a href="#">PBX: 01 8000 41 39 57</a></li>
+              <li><a href="#">Admin@thecloset.com</a></li>
+            </ul>
+          </div>
+      
+          <div class="col-md-3"> <!-- Corrected the column size to take the full width -->
+            <img src="../assets/img/logo.png" alt="">
+          </div>
+      
+         </div>
+      
+        <div class="row">
+          <div class="col-md-12">
+            <p class="text-center">
+              2024 The Closet Quilichao
+              <a href="#">Términos y condiciones</a> | <!-- Corrected the accent mark -->
+              <a href="#">Política de Privacidad</a> | <!-- Corrected the accent mark -->
+              <a href="#">Superintendencia</a>
+            </p>
+          </div>
+        </div>
+      
+      </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="views/js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

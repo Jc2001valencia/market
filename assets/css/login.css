@@ -1,0 +1,119 @@
+body {
+  color: #2c3f51;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  form{
+    max-width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  .form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+  }
+  .form-row .form-group {
+    width: 48%;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  input[type="submit"] {
+    background-color: #ff3366;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  input[type="submit"]:hover {
+    background-color: #ff3366;
+  }
+  /*///////////////////////////////////////////////*/
+  
+  .login-form {
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  .form-group_login {
+   
+    position: relative;
+    margin-bottom: 20px;
+  }
+  .form-group_login  input {
+    border-radius: 0%;
+    width: 90%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    background-color: transparent;
+    transition: border-bottom-color 0.3s ease-in-out;
+  }
+  .form-group_login  input:focus {
+    border-bottom-color: #ff3366;
+  }
+  .form-group_login  i {
+ 
+
+    top: 12px;
+    left: 5px;
+    color: #ccc;
+  }
+
+  .form-actions {
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .form-actions a {
+    text-decoration: none;
+    color: #ff3366;
+  }
+  .form-actions a:hover {
+    text-decoration: underline;
+  }
+  .google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  .google-btn i {
+    margin-right: 5px;
+  }
+  .google-btn:hover {
+    background-color: #f4f4f4;
+  }
