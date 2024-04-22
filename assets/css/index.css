@@ -75,12 +75,7 @@ body {
     gap: 1rem; /* Espacio entre las categorías */
 }
 
-/* Estilos para el contenedor de tiendas */
-.container {
-    max-width: 1200px; /* Establecer un ancho máximo para el contenedor */
-    margin: 0 auto; /* Centrar el contenedor horizontalmente */
-    padding: 20px; /* Agregar espacio alrededor del contenido */
-  }
+
   
   h1 {
     text-align: center; /* Centrar el título */
@@ -105,43 +100,11 @@ body {
   /* Media Queries para pantallas más pequeñas */
 
 
-  footer {
-    color: #2c3f51;
-    font-size: 14px;
-    font-family: sans-serif;
-  }
+ 
   
   #contenedor{
     padding: 5rem;
     display: flex;
-  }
-  
-  footer h5 {
-    margin-bottom: 10px;
-  }
-  
-  footer ul {
-    margin: 0;
-    padding: 0;
-  }
-  
-  footer li {
-    list-style: none;
-    margin-bottom: 10px;
-  }
-  
-  footer a {
-    color: #2c3f51;
-    text-decoration: none;
-  }
-  
-  footer a:hover {
-    color: #ddd;
-  }
-  
-  footer img{
-    float: left;
-    width: 350px;
   }
   
   

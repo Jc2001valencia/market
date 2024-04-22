@@ -1,13 +1,30 @@
-const main_img = document.querySelector('.main_img')
-const thumbnails = document.querySelectorAll('.thumbnail')
-
-
-thumbnails.forEach(thumb => {
-    thumb.addEventListener('click', function(){
-        const active = document.querySelector('.active')
-        active.classList.remove('active')
-        thumb.classList.add('active')
-        main_img.src = thumb.src
-    })
-})
+$('#carousel-related-product').slick({
+    infinite: true,
+    arrows: false,
+    slidesToShow: 4,
+    slidesToScroll: 3,
+    dots: true,
+    responsive: [{
+            breakpoint: 1024,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3
+            }
+        },
+        {
+            breakpoint: 600,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 3
+            }
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 3
+            }
+        }
+    ]
+});
 
