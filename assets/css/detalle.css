@@ -248,6 +248,10 @@ border-radius: 10px;
   .product-price {
     font-size: 2rem; /* Reducir el tamaño de fuente para pantallas más pequeñas */
   }
+
+  .map iframe{
+    max-width: 100%;
+  }
 }
 
 

@@ -134,4 +134,12 @@ body {
         height: 200px; /* Reducción del alto de las categorías en pantallas más pequeñas */
         margin-bottom: 0.5rem; /* Espacio entre las categorías para pantallas más pequeñas */
     }
+
+    .cate {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Cambié a 3 columnas para un mejor ajuste en pantallas más grandes */
+      gap: 1rem; /* Espacio entre las categorías */
+  }
+
+
 }
