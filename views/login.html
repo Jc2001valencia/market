@@ -6,28 +6,27 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="../assets/css/login.css">
+
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
-  <div class="card p-4 shadow-lg" style="width: 350px;">
-    <h2 class="text-center">Iniciar Sesión</h2>
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="email"><i class="fas fa-envelope"></i> Correo electrónico</label>
-        <input type="email" id="email" class="form-control" placeholder="Correo electrónico" required>
-      </div>
-      <div class="form-group">
-        <label for="password"><i class="fas fa-lock"></i> Contraseña</label>
-        <input type="password" id="password" class="form-control" placeholder="Contraseña" required>
-      </div>
-      <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
-    </form>
-    <div class="text-center mt-3">
-      <a href="#" data-toggle="modal" data-target="#recoveryModal">¿Olvidaste tu contraseña?</a>
+
+  <form class="login-form" id="loginForm">
+    <h2>Iniciar Sesión</h2>
+    <div class="form-group_login ">
+      <i class="fas fa-envelope"></i>
+      <input type="email" id="email" placeholder="Correo electrónico" required>
     </div>
-    <div class="text-center mt-3">
+    <div class="form-group_login ">
+      <i class="fas fa-lock"></i>
+      <input type="password"  id="password" placeholder="Contraseña" required>
+    </div>
+    <button type="submit" style="background-color: #ff3366; border: 5px;"class="btn btn-primary btn-block">Iniciar Sesión</button>
+    <div class="form-actions">
+      <a href="#"  data-toggle="modal" data-target="#recoveryModal">¿Olvidaste tu contraseña?</a>
+      <br>
       <a href="#" data-toggle="modal" data-target="#registerModal">Registro de Usuario</a>
     </div>
-  </div>
+  </form>
 
   <!-- Modal de Recuperación de Contraseña -->
   <div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryModalLabel" aria-hidden="true">
@@ -45,7 +44,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Enviar</button>
+          <button type="button"  style="background-color: #ff3366; border: 5px;"class="btn btn-primary ">Enviar</button>
         </div>
       </div>
     </div>
@@ -68,7 +67,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         <!-- ✅ Agregamos el ID necesario -->
-        <button type="button" class="btn btn-primary" id="verifyToken">Verificar</button>
+        <button type="button"  style="background-color: #ff3366; border: 5px;"class="btn btn-primary " id="verifyToken">Verificar</button>
       </div>
     </div>
   </div>
@@ -91,7 +90,7 @@
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-              <button type="button" class="btn btn-primary" id="registerButton">Registrarse</button>
+              <button type="button"  style="background-color: #ff3366; border: 5px;"class="btn btn-primary" id="registerButton">Registrarse</button>
           </div>
       </div>
   </div>

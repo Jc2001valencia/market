@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Administrativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="flex">
+    <!-- Menú Lateral -->
+    <aside class="w-64 bg-gray-900 h-screen text-white p-4 flex flex-col justify-between">
+        <div>
+            <h2 class="text-xl font-bold mb-4">Admin Panel</h2>
+            <ul>
+                <li class="mb-2"><a href="#usuarios" class="block py-2 px-4 hover:bg-gray-700">Usuarios</a></li>
+                <li class="mb-2"><a href="#productos" class="block py-2 px-4 hover:bg-gray-700">Productos</a></li>
+                <li class="mb-2"><a href="#ordenes" class="block py-2 px-4 hover:bg-gray-700">Órdenes</a></li>
+                <li class="mb-2"><a href="#estado" class="block py-2 px-4 hover:bg-gray-700">Estado</a></li>
+                <li class="mb-2"><a href="#ubicacion" class="block py-2 px-4 hover:bg-gray-700">Ubicación</a></li>
+            </ul>
+        </div>
+        <button onclick="mostrarModal()" class="w-full bg-red-600 py-2 rounded hover:bg-red-700">Cerrar Sesión</button>
+    </aside>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 p-6 bg-gray-100">
+        <h1 class="text-2xl font-bold mb-4">Gestión de Usuarios</h1>
+        <div class="bg-white p-4 shadow rounded-lg">
+            <button onclick="exportarPDF()" class="mb-4 bg-red-500 text-white px-4 py-2 rounded">Exportar a PDF</button>
+            <table class="w-full border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-200">
+                        <th class="border p-2">ID</th>
+                        <th class="border p-2">Nombre</th>
+                        <th class="border p-2">Email</th>
+                        <th class="border p-2">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border p-2">1</td>
+                        <td class="border p-2">Juan Pérez</td>
+                        <td class="border p-2">juan@example.com</td>
+                        <td class="border p-2">
+                            <button class="bg-blue-500 text-white px-3 py-1 rounded">Editar</button>
+                            <button class="bg-red-500 text-white px-3 py-1 rounded">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Modal de Confirmación -->
+    <div id="modal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white p-6 rounded shadow-lg text-center">
+            <p class="text-lg mb-4">¿Seguro que deseas cerrar sesión?</p>
+            <div class="flex justify-center space-x-4">
+                <button onclick="cerrarSesion()" class="bg-red-600 text-white px-4 py-2 rounded">Sí</button>
+                <button onclick="ocultarModal()" class="bg-gray-600 text-white px-4 py-2 rounded">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function exportarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text("Reporte de Usuarios", 10, 10);
+            doc.save("usuarios.pdf");
+        }
+
+        function mostrarModal() {
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function ocultarModal() {
+            document.getElementById('modal').classList.add('hidden');
+        }
+
+        function cerrarSesion() {
+            window.location.href = "login.html"; 
+        }
+    </script>
+</body>
+</html>
+
