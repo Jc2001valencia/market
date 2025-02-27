@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
                 if (result.message && result.message.includes("exitosa")) {
                     alert("✅ Autenticación exitosa.");
-                    window.location.href = "gestion_productos.html"; // Redirigir a la página deseada
+                    window.location.href = "../products/gestion_productos.html"; // Redirigir a la página deseada
                 } else {
                     alert("❌ Código incorrecto. Intenta de nuevo.");
                 }
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (result.message && result.message.includes("Usuario registrado correctamente")) {
                 alert(`✅ Registro exitoso. Ahora puedes continuar con el registro de tu tienda.`);
                 $("#registerModal").modal("hide"); // Cierra el modal
-                window.location.href = "signup.html"; // Redirige a signup.html
+                window.location.href = "../signup.html"; // Redirige a signup.html
             } else {
                 alert("⚠️ Error: " + result.message);
             }
