@@ -1,104 +1,113 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Administrativo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <title>Iniciar Sesión</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/login.css">
 </head>
-<body class="flex">
-    <!-- Menú Lateral -->
-    <aside class="w-64 bg-gray-900 h-screen text-white p-4">
-        <h2 class="text-xl font-bold mb-4">Admin Panel</h2>
-        <ul>
-            <li class="mb-2"><a href="usuarios.html" class="block py-2 px-4 hover:bg-gray-700">Usuarios</a></li>
-            <li class="mb-2"><a href="vendedores.html" class="block py-2 px-4 hover:bg-gray-700">Vendedores</a></li>
-            <li class="mb-2"><a href="productos.html" class="block py-2 px-4 hover:bg-gray-700">Productos</a></li>
-            <li class="mb-2"><a href="estado.html" class="block py-2 px-4 hover:bg-gray-700">Estado</a></li>
-            <li class="mb-2"><a href="ubicacion.html" class="block py-2 px-4 hover:bg-gray-700">Ubicación</a></li>
-        </ul>
-        <button onclick="mostrarModalCerrar()" class="mt-4 bg-red-600 w-full text-white py-2 rounded">Cerrar Sesión</button>
-    </aside>
-
-    <!-- Contenido Principal -->
-    <main class="flex-1 p-6 bg-gray-100">
-        <h1 class="text-2xl font-bold mb-4">Gestión de Usuarios</h1>
-        <div class="bg-white p-4 shadow rounded-lg">
-            <button onclick="exportarPDF()" class="mb-4 bg-red-500 text-white px-4 py-2 rounded">Exportar a PDF</button>
-            <button onclick="mostrarModalUsuario()" class="mb-4 bg-green-500 text-white px-4 py-2 rounded">Agregar Usuario</button>
-            <table class="w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr class="bg-gray-200">
-                        <th class="border p-2">ID</th>
-                        <th class="border p-2">Nombre</th>
-                        <th class="border p-2">Email</th>
-                        <th class="border p-2">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="border p-2">1</td>
-                        <td class="border p-2">Juan Pérez</td>
-                        <td class="border p-2">juan@example.com</td>
-                        <td class="border p-2">
-                            <button onclick="editarUsuario(1)" class="bg-blue-500 text-white px-3 py-1 rounded">Editar</button>
-                            <button class="bg-red-500 text-white px-3 py-1 rounded">Eliminar</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  
+  
+    <div class="card p-4 shadow-lg" style="width: 350px;">
+        <h2 class="text-center">Iniciar Sesión</h2>
+        <form id="loginForm">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            </div>
+            <input type="email" id="email" class="form-control" placeholder="Correo electrónico" required>
+          </div>
+      
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            </div>
+            <input type="password" id="password" class="form-control" placeholder="Contraseña" required>
+          </div>
+      
+          <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+        </form>
+        
+        <div class="text-center mt-3">
+          <a href="#" data-toggle="modal" data-target="#recoveryModal">¿Olvidaste tu contraseña?</a>
+          <br>
+          <a href="#" data-toggle="modal" data-target="#registerModal">Registro de Usuario</a>
         </div>
-    </main>
+      </div>
+      
 
-    <!-- Modal Agregar/Editar Usuario -->
-    <div id="modalUsuario" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
-        <div class="bg-white p-6 rounded shadow-lg w-1/3">
-            <h2 class="text-xl font-bold mb-4">Agregar/Editar Usuario</h2>
-            <input type="text" id="nombre" placeholder="Nombre" class="w-full mb-2 p-2 border rounded">
-            <input type="email" id="email" placeholder="Email" class="w-full mb-2 p-2 border rounded">
-            <div class="flex justify-end">
-                <button onclick="cerrarModalUsuario()" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
-                <button class="bg-green-500 text-white px-4 py-2 rounded">Guardar</button>
+  <!-- Modal de Recuperación de Contraseña -->
+  <div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="recoveryModalLabel">Recuperar Contraseña</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Ingresa tu correo para recibir un enlace de recuperación:</p>
+          <input type="email" id="recoveryEmail" class="form-control" placeholder="Correo electrónico" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Enviar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Autenticación en 2 pasos -->
+  <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="authModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="authModalLabel">Verificación en dos pasos</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Ingresa el código que enviamos a tu correo:</p>
+          <input type="text" id="authCode" class="form-control" placeholder="Código de verificación" required>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="verifyToken">Verificar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Registro -->
+<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registerModalLabel">Registro de Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Ingresa tu correo y una contraseña segura:</p>
+                <input type="email" id="registerEmail" class="form-control mb-2" placeholder="Correo electrónico" required>
+                <input type="password" id="registerPassword" class="form-control" placeholder="Contraseña" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="registerButton">Registrarse</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Modal Cerrar Sesión -->
-    <div id="modalCerrarSesion" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
-        <div class="bg-white p-6 rounded shadow-lg w-1/3">
-            <h2 class="text-xl font-bold mb-4">¿Seguro que deseas cerrar sesión?</h2>
-            <div class="flex justify-end">
-                <button onclick="cerrarModalCerrar()" class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancelar</button>
-                <button class="bg-red-600 text-white px-4 py-2 rounded">Cerrar Sesión</button>
-            </div>
-        </div>
-    </div>
 
-    <script>
-        function exportarPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.text("Reporte de Usuarios", 10, 10);
-            doc.save("usuarios.pdf");
-        }
-
-        function mostrarModalUsuario() {
-            document.getElementById("modalUsuario").classList.remove("hidden");
-        }
-
-        function cerrarModalUsuario() {
-            document.getElementById("modalUsuario").classList.add("hidden");
-        }
-
-        function mostrarModalCerrar() {
-            document.getElementById("modalCerrarSesion").classList.remove("hidden");
-        }
-
-        function cerrarModalCerrar() {
-            document.getElementById("modalCerrarSesion").classList.add("hidden");
-        }
-    </script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="../../Api/login.js"></script>
 </body>
 </html>
-

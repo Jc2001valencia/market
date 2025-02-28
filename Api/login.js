@@ -7,6 +7,15 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const userId = localStorage.getItem("userId");
+        
+        if (userId) {
+            console.log("🔹 Sesión activa. Usuario:", userId);
+            window.location.href = "../products/gestion_productos.html"; // Redirigir si ya está autenticado
+        }
+    });
+
     loginForm.addEventListener("submit", async function (event) {
         event.preventDefault();
     
