@@ -2,105 +2,132 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Tiendas</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
- <link rel="stylesheet" href="../assets/css/login.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      width: 900px;
+    }
+    .image-preview {
+      width: 100%;
+      height: 250px;
+      border: 2px dashed #ff3b63;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 5px;
+      background-color: #f8f8f8;
+      color: #ff3b63;
+      font-weight: bold;
+    }
+    .image-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .form-control {
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      transition: 0.3s;
+    }
+    .form-control:focus {
+      border-color: #ff3b63;
+      box-shadow: 0 0 5px rgba(255, 59, 99, 0.5);
+    }
+    .btn-primary {
+      background-color: #ff3b63;
+      border-color: #ff3b63;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn-primary:hover {
+      background-color: #e62e55;
+      border-color: #e62e55;
+    }
+    .text-center a {
+      color: #ff3b63;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .text-center a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <form style="width: 700px;" action="/registrar" method="post" onsubmit="return validateForm()">
-    <h2>Registro de Tiendas</h2>
-    <div class="form-row">
-      <div class="form-group">
-        <label for="tipo">Selecciona el tipo:</label>
-        <select id="tipo" name="tipo" required>
-          <option value="tienda">Tienda</option>
-          <option value="persona">Persona Natural</option>
-        </select>
+  <div class="container">
+    <h2 class="text-center">Registro de Tiendas</h2>
+    <div class="row">
+      <!-- Primera Columna - Formulario -->
+      <div class="col-md-6">
+        <form action="/registrar" method="post">
+          <div class="form-group">
+            <label for="tipo">Selecciona el tipo:</label>
+            <select class="form-control" id="tipo" name="tipo" required>
+              <option value="tienda">Tienda</option>
+              <option value="persona">Persona Natural</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" name="nombre" required>
+          </div>
+          <div class="form-group">
+            <label for="tipo_tienda">Tipo de Tienda:</label>
+            <select class="form-control" id="tipo_tienda" name="tipo_tienda" required>
+              <option value="ropa">Ropa</option>
+              <option value="moda">Moda</option>
+              <option value="accesorios">Accesorios</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="telefono">Número de Contacto (WhatsApp):</label>
+            <input type="text" class="form-control" id="telefono" name="telefono" required>
+          </div>
+          <div class="form-group">
+            <label for="ubicacion">Ubicación:</label>
+            <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
+          </div>
+        </form>
       </div>
-      <div class="form-group">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label for="tipo_tienda">Tipo de Tienda:</label>
-        <select id="tipo_tienda" name="tipo_tienda" required>
-          <option value="ropa">Ropa</option>
-          <option value="moda">Moda</option>
-          <option value="accesorios">Accesorios</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="ubicacion">Ubicación:</label>
-        <input type="text" id="ubicacion" name="ubicacion" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-    </div>
-    <div class="form-row">
-      <div class="form-group">
-        <label for="codigo_pais">Código de País:</label>
-        <select id="codigo_pais" name="codigo_pais" required>
-          <option value="+1">+1 (EE. UU.)</option>
-          <option value="+52">+52 (México)</option>
-          <!-- Agrega más opciones según los códigos de país que necesites -->
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="telefono">Número de Contacto (WhatsApp):</label>
-        <input type="text" id="telefono" name="telefono" required>
-      </div>
-    </div>
-    <div class="form-group" style="width: 320px;">
-      <label for="contrasena">Contraseña:</label>
-      <div class="input-group" style="display: flex;">
-        <input type="password" id="contrasena" name="contrasena" class="form-control" required>
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
-            <i class="fas fa-eye"></i>
-          </button>
+      
+      <!-- Segunda Columna - Imagen -->
+      <div class="col-md-6">
+        <div class="image-preview" id="imagePreview">
+          <span>Previsualización de imagen</span>
         </div>
+        <br>
+        <input type="file" class="form-control" id="imageInput" accept="image/*">
       </div>
     </div>
-    
-    <div class="form-actions">
-      <a href="login.html">Ya tengo una cuenta</a>
-      <div class="google-btn">
-        <i class="fab fa-google"></i>
-        Registrar con Google
-      </div>
-    </div>
-<br>
-    <input type="submit" value="Registrar">
-  </form>
-
+    <br>
+    <button type="submit" class="btn btn-block btn-primary">Registrar</button>
+  </div>
+  
   <script>
-    function validateForm() {
-      // Validación básica del número de contacto (solo números)
-      var telefono = document.getElementById("telefono").value;
-      if (isNaN(telefono)) {
-        alert("Por favor, introduce un número de contacto válido.");
-        return false;
-      }
-      return true;
-    }
-
-    function togglePassword() {
-      var passwordField = document.getElementById("contrasena");
-      var toggleButton = document.querySelector("#contrasena + .input-group-append button");
-
-      if (passwordField.type === "password") {
-        passwordField.type = "text";
-        toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
-      } else {
-        passwordField.type = "password";
-        toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
-      }
-    }
+    document.getElementById("imageInput").addEventListener("change", function(event) {
+      var reader = new FileReader();
+      reader.onload = function() {
+        var preview = document.getElementById("imagePreview");
+        preview.innerHTML = '<img src="' + reader.result + '" alt="Imagen seleccionada">';
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    });
   </script>
 </body>
 </html>
