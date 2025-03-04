@@ -1,27 +1,34 @@
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("loginForm");
-    let userId = null;
 
     if (!loginForm) {
         console.error("No se encontró el formulario de inicio de sesión.");
         return;
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const userId = localStorage.getItem("userId");
-        
-        if (userId) {
-            console.log("🔹 Sesión activa. Usuario:", userId);
-            window.location.href = "../products/gestion_productos.html"; // Redirigir si ya está autenticado
-        }
-    });
+    // Verificar si el usuario ya está autenticado
+    const userId = localStorage.getItem("userId");
+    const userRole = localStorage.getItem("userRole"); // Nuevo para rol
 
+    if (userId && userRole !== null) {
+        console.log("🔹 Sesión activa. Usuario:", userId, "Rol:", userRole);
+        
+        // Redirigir según el rol
+        if (userRole === "0") {
+            window.location.href = "../products/gestion_productos.html";
+        } else if (userRole === "1") {
+            window.location.href = "../Admin/Admins.html";
+        }
+        return;
+    }
+
+    // Evento de inicio de sesión
     loginForm.addEventListener("submit", async function (event) {
         event.preventDefault();
-    
+
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-    
+
         try {
             const response = await fetch("http://localhost/microservicio_autenticacion/", {
                 method: "POST",
@@ -32,18 +39,22 @@ document.addEventListener("DOMContentLoaded", function () {
                     password: password
                 })
             });
-    
+
             const result = await response.json();
             console.log("Respuesta del servidor:", result);
-    
-            if (result.estado === "correcto" && result.usuario?.id_usuario) {
+
+            if (result.estado === "correcto" && result.usuario?.id_usuario !== undefined) {
                 const userId = result.usuario.id_usuario;
+                const userRole = result.usuario.id_rol; // Obtener el rol
+
                 console.log("✅ ID usuario recibido:", userId);
-    
-                // 🔹 Guardar ID en localStorage para usarlo después en la validación
+                console.log("✅ ID rol recibido:", userRole);
+
+                // Guardar ID y rol en localStorage
                 localStorage.setItem("userId", userId);
-    
-                // 🔹 Mostrar el modal para ingresar el código 2FA
+                localStorage.setItem("userRole", userRole);
+
+                // Mostrar el modal para ingresar el código 2FA
                 $("#authModal").modal("show");
             } else {
                 alert("❌ Error en el inicio de sesión: " + (result.msg || "Credenciales incorrectas"));
@@ -53,29 +64,29 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("❌ Error al conectar con el servidor.");
         }
     });
-    
-    
+
     // 📌 Validar token 2FA
     document.addEventListener("click", async function (event) {
         if (event.target && event.target.id === "verifyToken") {
             console.log("✅ Botón de validación presionado.");
-    
+
             const authCode = document.getElementById("authCode").value;
             if (!authCode) {
                 alert("❌ Por favor, ingresa el código de verificación.");
                 return;
             }
-    
-            // 🔹 Recuperar userId desde localStorage
+
+            // 🔹 Recuperar userId y rol desde localStorage
             const userId = localStorage.getItem("userId");
-    
-            if (!userId) {
-                alert("❌ Error: No se encontró el ID del usuario. Inicia sesión nuevamente.");
+            const userRole = localStorage.getItem("userRole");
+
+            if (!userId || userRole === null) {
+                alert("❌ Error: No se encontró el ID del usuario o rol. Inicia sesión nuevamente.");
                 return;
             }
-    
+
             console.log(`Validando código: ${authCode} para usuario: ${userId}`);
-    
+
             try {
                 const response = await fetch("http://localhost/microservicio_autenticacion/", {
                     method: "POST",
@@ -86,17 +97,22 @@ document.addEventListener("DOMContentLoaded", function () {
                         token_2fa: authCode
                     })
                 });
-    
-                // 🔍 Ver la respuesta como texto antes de convertir a JSON
+
                 const responseText = await response.text();
                 console.log("🔹 Respuesta de validación (texto):", responseText);
-    
+
                 const result = JSON.parse(responseText);
                 console.log("🔹 Respuesta de validación (JSON):", result);
-    
+
                 if (result.message && result.message.includes("exitosa")) {
                     alert("✅ Autenticación exitosa.");
-                    window.location.href = "../products/gestion_productos.html"; // Redirigir a la página deseada
+
+                    // Redirigir según el rol del usuario
+                    if (userRole === "0") {
+                        window.location.href = "../products/gestion_productos.html";
+                    } else if (userRole === "1") {
+                        window.location.href = "../Admin/Admin.html";
+                    }
                 } else {
                     alert("❌ Código incorrecto. Intenta de nuevo.");
                 }
@@ -106,8 +122,9 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-    
 });
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -139,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (result.message && result.message.includes("Usuario registrado correctamente")) {
                 alert(`✅ Registro exitoso. Ahora puedes continuar con el registro de tu tienda.`);
                 $("#registerModal").modal("hide"); // Cierra el modal
-                window.location.href = "../signup.html"; // Redirige a signup.html
+                window.location.href = "../Users/signup.html"; // Redirige a signup.html
             } else {
                 alert("⚠️ Error: " + result.message);
             }
