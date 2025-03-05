@@ -5,69 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Registro de Tiendas</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-  <style>
-    body {
-      background-color: #f8f9fa;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .container {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      width: 900px;
-    }
-    .image-preview {
-      width: 100%;
-      height: 250px;
-      border: 2px dashed #ff3b63;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      border-radius: 5px;
-      background-color: #f8f8f8;
-      color: #ff3b63;
-      font-weight: bold;
-    }
-    .image-preview img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .form-control {
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      transition: 0.3s;
-    }
-    .form-control:focus {
-      border-color: #ff3b63;
-      box-shadow: 0 0 5px rgba(255, 59, 99, 0.5);
-    }
-    .btn-primary {
-      background-color: #ff3b63;
-      border-color: #ff3b63;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: 0.3s;
-    }
-    .btn-primary:hover {
-      background-color: #e62e55;
-      border-color: #e62e55;
-    }
-    .text-center a {
-      color: #ff3b63;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .text-center a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"></script>
+  <link rel="stylesheet" href="../../assets/css/signup.css">
 </head>
 <body>
   <div class="container">
@@ -75,25 +14,14 @@
     <div class="row">
       <!-- Primera Columna - Formulario -->
       <div class="col-md-6">
-        <form action="/registrar" method="post">
+        <form id="registroForm">
           <div class="form-group">
-            <label for="tipo">Selecciona el tipo:</label>
-            <select class="form-control" id="tipo" name="tipo" required>
-              <option value="tienda">Tienda</option>
-              <option value="persona">Persona Natural</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="nombre">Nombre:</label>
+            <label for="nombre">Nombre de la Tienda:</label>
             <input type="text" class="form-control" id="nombre" name="nombre" required>
           </div>
           <div class="form-group">
-            <label for="tipo_tienda">Tipo de Tienda:</label>
-            <select class="form-control" id="tipo_tienda" name="tipo_tienda" required>
-              <option value="ropa">Ropa</option>
-              <option value="moda">Moda</option>
-              <option value="accesorios">Accesorios</option>
-            </select>
+            <label for="descripcion">Descripción:</label>
+            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
           </div>
           <div class="form-group">
             <label for="telefono">Número de Contacto (WhatsApp):</label>
@@ -103,6 +31,7 @@
             <label for="ubicacion">Ubicación:</label>
             <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
           </div>
+          <button type="submit" class="btn btn-block btn-primary">Registrar</button>
         </form>
       </div>
       
@@ -115,19 +44,8 @@
         <input type="file" class="form-control" id="imageInput" accept="image/*">
       </div>
     </div>
-    <br>
-    <button type="submit" class="btn btn-block btn-primary">Registrar</button>
   </div>
-  
-  <script>
-    document.getElementById("imageInput").addEventListener("change", function(event) {
-      var reader = new FileReader();
-      reader.onload = function() {
-        var preview = document.getElementById("imagePreview");
-        preview.innerHTML = '<img src="' + reader.result + '" alt="Imagen seleccionada">';
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    });
-  </script>
+
+  <script src="../../Api/vendedores.js"></script>
 </body>
 </html>
