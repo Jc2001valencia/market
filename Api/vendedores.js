@@ -1,5 +1,13 @@
 document.getElementById("registroForm").addEventListener("submit", async function (event) {
-    event.preventDefault(); // Evita el recarga de la página
+    event.preventDefault(); // Evita la recarga de la página
+
+    // Obtener el ID del usuario desde localStorage
+    let idUsuario = localStorage.getItem("user_id");
+
+    if (!idUsuario) {
+        alert("⚠️ Error: No se encontró el ID de usuario. Inicia sesión nuevamente.");
+        return;
+    }
 
     // Obtener valores del formulario
     let nombre = document.getElementById("nombre").value.trim();
@@ -10,18 +18,19 @@ document.getElementById("registroForm").addEventListener("submit", async functio
 
     // Validación básica
     if (!nombre || !descripcion || !telefono || !ubicacion) {
-        alert("Todos los campos son obligatorios.");
+        alert("⚠️ Todos los campos son obligatorios.");
         return;
     }
 
-    let imagenRuta = ""; // Ruta de la imagen que se enviará
+    let imagenRuta = ""; // Solo el nombre de la imagen
 
+    // Si hay una imagen, la subimos primero
     if (imagenInput) {
         let formData = new FormData();
         formData.append("imagen", imagenInput);
 
         try {
-            let imagenResponse = await fetch("http://localhost/microservicio_autenticacion/", {
+            let imagenResponse = await fetch("http://localhost/microservicio_autenticacion/upload", {
                 method: "POST",
                 body: formData
             });
@@ -31,15 +40,15 @@ document.getElementById("registroForm").addEventListener("submit", async functio
             }
 
             let imagenData = await imagenResponse.json();
-            if (imagenData.success) {
-                imagenRuta = imagenData.ruta;
+            if (imagenData.success && imagenData.nombre_imagen) {
+                imagenRuta = imagenData.nombre_imagen; // Guardar solo el nombre del archivo con extensión
             } else {
-                alert("Error al subir la imagen: " + imagenData.message);
+                alert("⚠️ Error al subir la imagen: " + imagenData.message);
                 return;
             }
         } catch (error) {
-            console.error("Error al subir la imagen:", error);
-            alert("No se pudo subir la imagen.");
+            console.error("❌ Error al subir la imagen:", error);
+            alert("⚠️ No se pudo subir la imagen.");
             return;
         }
     }
@@ -51,9 +60,9 @@ document.getElementById("registroForm").addEventListener("submit", async functio
         descripcion: descripcion,
         id_ubicacion: parseInt(ubicacion),  
         telefono: telefono,
-        id_usu: 5,  
+        id_usu: parseInt(idUsuario), // Se usa el ID obtenido del localStorage
         id_tipotienda: 1,  
-        imagen: imagenRuta 
+        imagen: imagenRuta // Solo el nombre de la imagen
     };
 
     try {
@@ -71,10 +80,28 @@ document.getElementById("registroForm").addEventListener("submit", async functio
         alert(result.message);
         console.log("Registro exitoso:", result);
 
-        // Resetear el formulario después de registrar
-        document.getElementById("registroForm").reset();
+        // Redirigir si el registro es exitoso
+        if (result.success) {
+            window.location.href = "gestiondeproductos.html";
+        }
     } catch (error) {
-        console.error("Error al registrar:", error);
-        alert("No se pudo registrar el vendedor.");
+        console.error("❌ Error al registrar:", error);
+        alert("⚠️ No se pudo registrar el vendedor.");
+    }
+});
+
+// Función para previsualizar la imagen
+document.getElementById("imageInput").addEventListener("change", function (event) {
+    let file = event.target.files[0];
+    let preview = document.getElementById("imagePreview");
+
+    if (file) {
+        let reader = new FileReader();
+        reader.onload = function (e) {
+            preview.innerHTML = `<img src="${e.target.result}" class="img-fluid" alt="Previsualización">`;
+        };
+        reader.readAsDataURL(file);
+    } else {
+        preview.innerHTML = "<span>Previsualización de imagen</span>";
     }
 });

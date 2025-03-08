@@ -125,8 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-
-
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("registerButton").addEventListener("click", async function () {
         const email = document.getElementById("registerEmail").value.trim();
@@ -153,12 +151,22 @@ document.addEventListener("DOMContentLoaded", function () {
             const result = await response.json();
             console.log("🔹 Respuesta del servidor:", result);
 
-            if (result.message && result.message.includes("Usuario registrado correctamente")) {
-                alert(`✅ Registro exitoso. Ahora puedes continuar con el registro de tu tienda.`);
+            // Verificamos si la respuesta contiene los datos esperados
+            if (result && result.estado === "correcto" && result.usuario && result.usuario.id_usuario) {
+                const userId = result.usuario.id_usuario;
+                const userEmail = result.usuario.email;
+
+                // Guardamos los datos en localStorage
+                localStorage.setItem("user_id", userId);
+                localStorage.setItem("user_email", userEmail);
+
+                alert(`✅ Registro exitoso. `);
                 $("#registerModal").modal("hide"); // Cierra el modal
-                window.location.href = "../Users/signup.html"; // Redirige a signup.html
+                
+                // Redirigir al siguiente paso del registro
+                window.location.href = "../Users/signup.html"; 
             } else {
-                alert("⚠️ Error: " + result.message);
+                alert("⚠️ Error en la respuesta del servidor: " + JSON.stringify(result));
             }
         } catch (error) {
             console.error("❌ Error al conectar con la API:", error);
@@ -166,7 +174,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-
-
-
