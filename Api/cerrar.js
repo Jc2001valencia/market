@@ -1,6 +1,5 @@
 console.log("✅ cerrar.js ha sido cargado correctamente");
 
-
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ DOM completamente cargado");
 
@@ -9,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
         logoutButton.addEventListener("click", function () {
             console.log("🔹 Cerrando sesión...");
             localStorage.removeItem("userId");
+            localStorage.removeItem("user_id"); // Elimina ambas claves
             window.location.href = "../../index.html";
         });
     } else {
@@ -17,7 +17,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Validar si el usuario tiene sesión activa
     const userId = localStorage.getItem("userId");
-    if (!userId) {
+    const user_id = localStorage.getItem("user_id");
+
+    if (!userId && !user_id) { // Verifica ambas variables
         console.log("❌ Acceso denegado. Redirigiendo...");
         window.location.href = "../../index.html";
     }
