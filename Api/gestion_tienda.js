@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("descripcionTexto").textContent = vendedor.descripcion;
 
       // **Actualizar la imagen de perfil**
-      const imagenPerfil = document.getElementById("imagenPerfil");
+      const imagenPerfil = document.getElementById("imagenTienda");
       if (imagenPerfil && vendedor.imagen) {
           imagenPerfil.setAttribute("src", `../../profiles/${vendedor.imagen}`);
       } else {

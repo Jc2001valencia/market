@@ -76,48 +76,15 @@
        
       
         <!-- Sección para mostrar los productos con tarjetas (cards) -->
-        <div class="row" style="padding: 2rem;">
-          <!-- Ejemplo de tarjeta para un producto -->
-          <div class="col-md-3" > 
-            <div class="card mb-3 shadow-sm">
-              <img src="../../assets/img/Saco-Naranja-Hombre-Luna-Estampada-A.png" class="card-img-top" alt="Imagen del Producto">
-              <div class="card-body">
-                <h5 class="card-title">Nombre del Producto</h5>
-                <p class="card-text">Descripción del Producto</p>
-                <p class="card-text">Precio: $100</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                    <button  style="width: 100px;" type="button" class="btn btn-sm btn-outline-warning">Agotado</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="row" id="contenedor-productos" style="padding: 2rem;"></div>
+
           <!-- Fin del ejemplo de tarjeta para un producto -->
           <!-- Ejemplo de tarjeta para un producto -->
-          <div class="col-md-3" > 
-            <div class="card mb-3 shadow-sm">
-              <img src="../../assets/img/Saco-Naranja-Hombre-Luna-Estampada-A.png" class="card-img-top" alt="Imagen del Producto">
-              <div class="card-body">
-                <h5 class="card-title">Nombre del Producto</h5>
-                <p class="card-text">Descripción del Producto</p>
-                <p class="card-text">Precio: $100</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                    <button  style="width: 100px;" type="button" class="btn btn-sm btn-outline-warning">Agotado</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Fin del ejemplo de tarjeta para un producto -->
-      
+
           <!-- Aquí puedes agregar más tarjetas de productos dinámicamente -->
         </div>
+
+
       </main>
       
                   <!-- Fin del ejemplo de tarjeta para un producto -->
@@ -134,26 +101,36 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
               </div>
               <div class="modal-body">
-                  <form>
-                      <!-- Campos para ingresar información del nuevo producto -->
-                      <div class="form-group">
-                        <label for="nombreProducto">Nombre:</label>
-                        <input type="text" class="form-control" id="nombreProducto" placeholder="Nombre del Producto">
-                      </div>
-                      <div class="form-group">
-                        <label for="descripcionProducto">Descripción:</label>
-                        <textarea class="form-control" id="descripcionProducto" rows="3" placeholder="Descripción del Producto"></textarea>
-                      </div>
-                      <div class="form-group">
-                        <label for="precioProducto">Precio:</label>
-                        <input type="number" class="form-control" id="precioProducto" placeholder="Precio del Producto">
-                      </div>
-                      <div class="form-group">
-                        <label for="imagenProducto">Cargar Imagen:</label>
-                        <input type="file" class="form-control-file" id="imagenProducto">
-                      </div>
-                      <button type="submit" class="btn btn-primary">Guardar Producto</button>
-                    </form>
+                <form id="formProducto" enctype="multipart/form-data">
+                  <!-- Información del producto -->
+                  <div class="form-group">
+                    <label for="nombreProducto">Nombre:</label>
+                    <input type="text" class="form-control" id="nombreProducto" name="nombre" required>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="descripcionProducto">Descripción:</label>
+                    <textarea class="form-control" id="descripcionProducto" name="descripcion" rows="3" required></textarea>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="precioProducto">Precio:</label>
+                    <input type="number" class="form-control" id="precioProducto" name="precio" required>
+                  </div>
+                
+                  <!-- Subformulario de imágenes -->
+                  <div class="form-group">
+                    <label for="imagenesProducto">Subir Imágenes (máx. 3):</label>
+                    <input type="file" class="form-control-file" id="imagenesProducto" name="imagenes[]" accept="image/*" multiple required>
+                    <div id="previewContainer" class="d-flex flex-wrap mt-2"></div>
+                  </div>
+                
+                  <button type="submit" class="btn btn-primary mt-3">Guardar Producto</button>
+                </form>
+                
+                
+                
+                
               </div>
             </div>
           </div>
@@ -162,9 +139,102 @@
 
 
   <!-- Scripts de Bootstrap y jQuery -->
+   <script src="../../Api/gestion_productos.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="../../Api/cerrar.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script>
+    document.getElementById("imagenesProducto").addEventListener("change", function(event) {
+      const previewContainer = document.getElementById("previewContainer");
+      previewContainer.innerHTML = ""; // Limpiar previas imágenes
+    
+      const files = Array.from(event.target.files);
+      if (files.length > 3) {
+        alert("Solo puedes subir un máximo de 3 imágenes.");
+        event.target.value = "";
+        return;
+      }
+    
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.className = "img-thumbnail m-1";
+          img.style.width = "100px";
+          img.style.height = "100px";
+          previewContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+    
+    document.getElementById("formProducto").addEventListener("submit", async function(e) {
+      e.preventDefault();
+    
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        alert("Usuario no autenticado.");
+        return;
+      }
+    
+      try {
+        // 1. Subir imágenes y obtener su ID
+        const formDataImg = new FormData();
+        const imagenes = document.getElementById("imagenesProducto").files;
+    
+        if (imagenes.length === 0) {
+          alert("Debes subir al menos una imagen.");
+          return;
+        }
+    
+        Array.from(imagenes).forEach((img, index) => formDataImg.append(`imagen${index + 1}`, img));
+    
+        const imgRes = await fetch("http://localhost/microservicio_producto/routes/api.php?action=subirImagenes", {
+          method: "POST",
+          body: formDataImg
+        });
+    
+        const imgData = await imgRes.json();
+        if (!imgData.id_imagen) {
+          alert("Error al subir imágenes.");
+          return;
+        }
+    
+        // 2. Obtener ID del vendedor
+        const vendedorRes = await fetch(`http://localhost/microservicio_vendedor/routes/api.php?action=obtenerIdVendedor&id_usu=${userId}`);
+        const vendedorData = await vendedorRes.json();
+    
+        if (!vendedorData.id_vendedor) {
+          alert("No se pudo obtener el ID del vendedor.");
+          return;
+        }
+    
+        // 3. Crear producto con el ID de imágenes
+        const formDataProd = new FormData(this);
+        formDataProd.append("id_vendedor", vendedorData.id_vendedor);
+        formDataProd.append("id_imagen", imgData.id_imagen); // Asignar ID de las imágenes
+    
+        const prodRes = await fetch("http://localhost/microservicio_producto/routes/api.php?action=crear", {
+          method: "POST",
+          body: formDataProd
+        });
+    
+        const prodData = await prodRes.json();
+        alert(prodData.mensaje || prodData.error || "Producto creado exitosamente");
+    
+        // 4. Limpiar formulario
+        document.getElementById("formProducto").reset();
+        document.getElementById("previewContainer").innerHTML = "";
+    
+      } catch (err) {
+        console.error("Error al guardar producto:", err);
+        alert("Ocurrió un error al guardar el producto.");
+      }
+    });
+    
+  
+    </script>
 </body>
 </html>
