@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // **Actualizar la imagen de perfil**
       const imagenPerfil = document.getElementById("imagenTienda");
       if (imagenPerfil && vendedor.imagen) {
-          imagenPerfil.setAttribute("src", `../../profiles/${vendedor.imagen}`);
+          imagenPerfil.setAttribute("src", `../../porfiles/${vendedor.imagen}`);
+         
       } else {
           console.warn("No se encontró imagen o elemento de imagen.");
       }

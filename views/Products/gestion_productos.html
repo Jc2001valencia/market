@@ -93,48 +93,133 @@
 
 
         <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
+        <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg"> <!-- Más ancho -->
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Producto</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="formProducto" enctype="multipart/form-data">
+          <div class="row">
+            
+            <!-- 🖼 Columna Izquierda: Imágenes -->
+            <div class="col-md-6">
+              <h5>Imágenes</h5>
+              <div class="form-group mb-3">
+                <label for="imagenesProducto">Subir Imágenes (máx. 3):</label>
+                <input type="file" class="form-control" id="imagenesProducto" name="imagenes[]" accept="image/*" multiple required>
+              </div>
+              <div id="previewContainer" class="d-flex flex-wrap gap-2 border p-2 rounded">
+                <!-- Aquí se mostrarán las vistas previas -->
+              </div>
+            </div>
+
+            <!-- ✏️ Columna Derecha: Información del Producto -->
+            <div class="col-md-6">
+              <h5>Información</h5>
+              <div class="form-group mb-3">
+                <label for="nombreProducto">Nombre:</label>
+                <input type="text" class="form-control" id="nombreProducto" name="nombre" required>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="descripcionProducto">Descripción:</label>
+                <textarea class="form-control" id="descripcionProducto" name="descripcion" rows="3" required></textarea>
+              </div>
+
+              <div class="form-group mb-3">
+                <label for="precioProducto">Precio:</label>
+                <input type="number" class="form-control" id="precioProducto" name="precio" required>
+              </div>
+
+              <!-- 🗂 Subformulario: Categorías -->
+              <div class="form-group mb-3">
+                <label>Categorías (máx. 3):</label>
+                <div id="categoriasContainer">
+                  <div class="input-group mb-2">
+                    <input type="text" class="form-control categoria-input" name="categorias[]" placeholder="Ej: Ropa, Calzado...">
+                    <button type="button" class="btn btn-outline-secondary eliminarCategoria">✕</button>
+                  </div>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-primary" id="agregarCategoria">+ Agregar Categoría</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón de Envío -->
+          <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success px-4">Guardar Producto</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg"> <!-- Más ancho -->
             <div class="modal-content">
+              
               <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Producto</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
               </div>
+              
               <div class="modal-body">
                 <form id="formProducto" enctype="multipart/form-data">
-                  <!-- Información del producto -->
-                  <div class="form-group">
-                    <label for="nombreProducto">Nombre:</label>
-                    <input type="text" class="form-control" id="nombreProducto" name="nombre" required>
+                  <div class="row">
+                    
+                    <!-- 🖼 Columna Izquierda: Imágenes -->
+                    <div class="col-md-6">
+                      <h5>Imágenes</h5>
+                      <div class="form-group mb-3">
+                        <label for="imagenesProducto">Subir Imágenes (máx. 3):</label>
+                        <input type="file" class="form-control" id="imagenesProducto" name="imagenes[]" accept="image/*" multiple required>
+                      </div>
+                      <div id="previewContainer" class="d-flex flex-wrap gap-2 border p-2 rounded">
+                        <!-- Aquí se mostrarán las vistas previas -->
+                      </div>
+                    </div>
+        
+                    <!-- ✏️ Columna Derecha: Información del Producto -->
+                    <div class="col-md-6">
+                      <h5>Información</h5>
+                      <div class="form-group mb-3">
+                        <label for="nombreProducto">Nombre:</label>
+                        <input type="text" class="form-control" id="nombreProducto" name="nombre" required>
+                      </div>
+        
+                      <div class="form-group mb-3">
+                        <label for="descripcionProducto">Descripción:</label>
+                        <textarea class="form-control" id="descripcionProducto" name="descripcion" rows="3" required></textarea>
+                      </div>
+        
+                      <div class="form-group mb-3">
+                        <label for="precioProducto">Precio:</label>
+                        <input type="number" class="form-control" id="precioProducto" name="precio" required>
+                      </div>
+        
+                      <!-- Aquí puedes agregar más campos como categoría, estado, etc. -->
+                    </div>
                   </div>
-                  
-                  <div class="form-group">
-                    <label for="descripcionProducto">Descripción:</label>
-                    <textarea class="form-control" id="descripcionProducto" name="descripcion" rows="3" required></textarea>
+        
+                  <!-- Botón de Envío -->
+                  <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success px-4">Guardar Producto</button>
                   </div>
-                  
-                  <div class="form-group">
-                    <label for="precioProducto">Precio:</label>
-                    <input type="number" class="form-control" id="precioProducto" name="precio" required>
-                  </div>
-                
-                  <!-- Subformulario de imágenes -->
-                  <div class="form-group">
-                    <label for="imagenesProducto">Subir Imágenes (máx. 3):</label>
-                    <input type="file" class="form-control-file" id="imagenesProducto" name="imagenes[]" accept="image/*" multiple required>
-                    <div id="previewContainer" class="d-flex flex-wrap mt-2"></div>
-                  </div>
-                
-                  <button type="submit" class="btn btn-primary mt-3">Guardar Producto</button>
                 </form>
-                
-                
-                
-                
               </div>
+              
             </div>
           </div>
         </div>
+        
+        
 
 
 
@@ -145,96 +230,37 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script>
-    document.getElementById("imagenesProducto").addEventListener("change", function(event) {
-      const previewContainer = document.getElementById("previewContainer");
-      previewContainer.innerHTML = ""; // Limpiar previas imágenes
     
-      const files = Array.from(event.target.files);
-      if (files.length > 3) {
-        alert("Solo puedes subir un máximo de 3 imágenes.");
-        event.target.value = "";
-        return;
-      }
-    
-      files.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const img = document.createElement("img");
-          img.src = e.target.result;
-          img.className = "img-thumbnail m-1";
-          img.style.width = "100px";
-          img.style.height = "100px";
-          previewContainer.appendChild(img);
-        };
-        reader.readAsDataURL(file);
+    document.addEventListener("DOMContentLoaded", function () {
+      const btnAgregar = document.getElementById("agregarCategoria");
+      const container = document.getElementById("categoriasContainer");
+  
+      btnAgregar.addEventListener("click", () => {
+        const currentInputs = container.querySelectorAll(".categoria-input").length;
+  
+        if (currentInputs < 3) {
+          const div = document.createElement("div");
+          div.classList.add("input-group", "mb-2");
+          div.innerHTML = `
+            <input type="text" class="form-control categoria-input" name="categorias[]" placeholder="Nueva categoría">
+            <button type="button" class="btn btn-outline-secondary eliminarCategoria">✕</button>
+          `;
+          container.appendChild(div);
+        }
+      });
+  
+      // Eliminar categoría individual
+      container.addEventListener("click", (e) => {
+        if (e.target.classList.contains("eliminarCategoria")) {
+          e.target.parentElement.remove();
+        }
       });
     });
+    </script>
     
-    document.getElementById("formProducto").addEventListener("submit", async function(e) {
-      e.preventDefault();
     
-      const userId = localStorage.getItem("userId");
-      if (!userId) {
-        alert("Usuario no autenticado.");
-        return;
-      }
-    
-      try {
-        // 1. Subir imágenes y obtener su ID
-        const formDataImg = new FormData();
-        const imagenes = document.getElementById("imagenesProducto").files;
-    
-        if (imagenes.length === 0) {
-          alert("Debes subir al menos una imagen.");
-          return;
-        }
-    
-        Array.from(imagenes).forEach((img, index) => formDataImg.append(`imagen${index + 1}`, img));
-    
-        const imgRes = await fetch("http://localhost/microservicio_producto/routes/api.php?action=subirImagenes", {
-          method: "POST",
-          body: formDataImg
-        });
-    
-        const imgData = await imgRes.json();
-        if (!imgData.id_imagen) {
-          alert("Error al subir imágenes.");
-          return;
-        }
-    
-        // 2. Obtener ID del vendedor
-        const vendedorRes = await fetch(`http://localhost/microservicio_vendedor/routes/api.php?action=obtenerIdVendedor&id_usu=${userId}`);
-        const vendedorData = await vendedorRes.json();
-    
-        if (!vendedorData.id_vendedor) {
-          alert("No se pudo obtener el ID del vendedor.");
-          return;
-        }
-    
-        // 3. Crear producto con el ID de imágenes
-        const formDataProd = new FormData(this);
-        formDataProd.append("id_vendedor", vendedorData.id_vendedor);
-        formDataProd.append("id_imagen", imgData.id_imagen); // Asignar ID de las imágenes
-    
-        const prodRes = await fetch("http://localhost/microservicio_producto/routes/api.php?action=crear", {
-          method: "POST",
-          body: formDataProd
-        });
-    
-        const prodData = await prodRes.json();
-        alert(prodData.mensaje || prodData.error || "Producto creado exitosamente");
-    
-        // 4. Limpiar formulario
-        document.getElementById("formProducto").reset();
-        document.getElementById("previewContainer").innerHTML = "";
-    
-      } catch (err) {
-        console.error("Error al guardar producto:", err);
-        alert("Ocurrió un error al guardar el producto.");
-      }
-    });
     
   
-    </script>
+   
 </body>
 </html>
