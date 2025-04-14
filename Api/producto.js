@@ -38,7 +38,7 @@ function actualizarDOMConDatos(producto) {
     
     document.querySelector(".text-muted strong").textContent = "Marca Desconocida"; 
     document.querySelector("h6 + p").textContent = producto.descripcion;
-    document.querySelector("#product-detail").src = `../assets/img/${producto.imagen}`;
+    document.querySelector("#product-detail").src = `../../assets/img/${producto.imagen}`;
     document.querySelector("#product-detail").alt = producto.nombre;
 
     actualizarEnlaceWhatsApp(producto);
