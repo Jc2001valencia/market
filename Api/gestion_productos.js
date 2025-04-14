@@ -228,7 +228,11 @@ document.addEventListener("DOMContentLoaded", async function () {
             <div class="d-flex justify-content-center gap-2 mt-auto">
               <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
               <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar" data-id-producto="${producto.id_producto}">Eliminar</button>
-              <button type="button" class="btn btn-sm btn-outline-warning" style="width: 100px;">Vendido</button>
+             <button type="button" class="btn btn-sm btn-outline-warning" 
+        data-id-producto="${producto.id_producto}" style="width: 100px;">
+    Marcar como vendido
+</button>
+
             </div>
           </div>
         </div>
@@ -282,6 +286,65 @@ document.addEventListener("DOMContentLoaded", async function () {
     contenedor.innerHTML = `<p class="text-danger">Error al cargar los productos.</p>`;
   }
 });
+// Delegamos el evento click a los botones "Vendido"
+document.addEventListener("click", async function (event) {
+  // Verificamos si el clic fue sobre un botón que tiene la clase "btn-outline-warning"
+  if (event.target.classList.contains("btn-outline-warning")) {
+    const boton = event.target;
+    const idProducto = boton.getAttribute("data-id-producto");
+
+    // Verificamos si el ID del producto está disponible
+    if (!idProducto) {
+      console.error("ID del producto no encontrado");
+      return;
+    }
+
+    console.log("Producto ID:", idProducto);
+
+    try {
+      const confirmar = confirm("¿Estás seguro de marcar este producto como vendido?");
+      if (!confirmar) return;
+    
+      const response = await fetch(`http://localhost/microservicio_producto/routes/api.php?action=productoVendido&id_producto=${idProducto}`);
+      
+      // Verificar si la respuesta es exitosa
+      if (!response.ok) {
+        console.error("Error en la respuesta de la API:", response.status);
+        alert("Hubo un problema con la solicitud al servidor.");
+        return;
+      }
+    
+      // Obtener la respuesta cruda y eliminar los posibles valores nulos o vacíos
+      const responseText = await response.text();
+      console.log("Respuesta cruda de la API:", responseText);
+    
+      // Intentar parsear el JSON, pero solo si la respuesta no es nula o vacía
+      let result = null;
+      try {
+        result = JSON.parse(responseText);
+      } catch (e) {
+        console.error("Error al parsear la respuesta JSON", e);
+      }
+    
+      if (result && (result.success || result.mensaje === "Producto marcado como vendido")) {
+        alert("Producto marcado como vendido correctamente.");
+    
+        // Cambiar estilo del botón
+        boton.classList.remove("btn-outline-warning");
+        boton.classList.add("btn-secondary");
+        boton.textContent = "Vendido";
+        boton.disabled = true;
+      } else {
+        alert("No se pudo marcar como vendido. Intenta de nuevo.");
+      }
+    } catch (error) {
+      console.error("Error al marcar como vendido:", error);
+      alert("Ocurrió un error al marcar el producto como vendido.");
+    }
+  }
+});
+
+
 
 // agregar 
 
