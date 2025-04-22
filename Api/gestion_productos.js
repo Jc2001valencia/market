@@ -203,40 +203,74 @@ document.addEventListener("DOMContentLoaded", async function () {
       `).join("");
 
       card.innerHTML = `
-        <div class="card h-100 shadow-sm text-center p-2">
-          <div id="${carouselId}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500" style="height: 250px;">
-            <div class="carousel-indicators">
-              ${carouselIndicators}
-            </div>
-            <div class="carousel-inner h-100">
-              ${carouselItems}
-            </div>
-            <button class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y p-1 border-0 bg-transparent shadow-none"
-                    type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            </button>
-            <button class="carousel-control-next position-absolute top-50 end-0 translate-middle-y p-1 border-0 bg-transparent shadow-none"
-                    type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            </button>
-          </div>
+  <div class="card h-100 shadow-sm text-center p-2">
+    <div id="${carouselId}" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2500" style="height: 250px;">
+      <div class="carousel-indicators">
+        ${carouselIndicators}
+      </div>
+      <div class="carousel-inner h-100">
+        ${carouselItems}
+      </div>
+      <button class="carousel-control-prev position-absolute top-50 start-0 translate-middle-y p-1 border-0 bg-transparent shadow-none"
+              type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      </button>
+      <button class="carousel-control-next position-absolute top-50 end-0 translate-middle-y p-1 border-0 bg-transparent shadow-none"
+              type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      </button>
+    </div>
 
-          <div class="card-body d-flex flex-column justify-content-between">
-            <h5 class="card-title">${producto.nombre}</h5>
-            <p class="card-text">${producto.descripcion}</p>
-            <p class="card-text"><strong>Precio:</strong> $${parseFloat(producto.precio).toLocaleString()}</p>
-            <div class="d-flex justify-content-center gap-2 mt-auto">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
-              <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar" data-id-producto="${producto.id_producto}">Eliminar</button>
-             <button type="button" class="btn btn-sm btn-outline-warning" 
-        data-id-producto="${producto.id_producto}" style="width: 100px;">
-    Marcar como vendido
-</button>
+    <div class="card-body d-flex flex-column justify-content-between">
+      <h5 class="card-title">${producto.nombre}</h5>
+      <p class="text-muted small">
+        ${producto.categorias && producto.categorias.length > 0 
+          ? producto.categorias.slice(0, 3).join(" / ") 
+          : "Sin categorías"}
+      </p>
+      <p class="card-text">${producto.descripcion}</p>
+      <p class="card-text"><strong>Precio:</strong> $${parseFloat(producto.precio).toLocaleString()}</p>
+      <div class="d-flex justify-content-center gap-2 mt-auto">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Editar</button>
+        <button type="button" class="btn btn-sm btn-outline-danger btn-eliminar" data-id-producto="${producto.id_producto}">Eliminar</button>
+        <button type="button" class="btn btn-sm btn-outline-warning" 
+                data-id-producto="${producto.id_producto}" style="width: 100px;">
+          Marcar como vendido
+        </button>
+      </div>
+    </div>
+  </div>
+`;
+      const btnEditar = card.querySelector(".btn-outline-secondary");
 
-            </div>
-          </div>
-        </div>
-      `;
+      btnEditar.addEventListener("click", () => {
+        document.getElementById("editarIdProducto").value = producto.id_producto;
+        document.getElementById("editarNombreProducto").value = producto.nombre;
+        document.getElementById("editarDescripcionProducto").value = producto.descripcion;
+        document.getElementById("editarPrecioProducto").value = producto.precio;
+        
+        // Si quieres llenar las categorías, deberías construir inputs dentro de este contenedor:
+        const categoriasContainer = document.getElementById("editarCategoriasContainer");
+        categoriasContainer.innerHTML = ""; // Limpia lo anterior
+        
+        if (producto.categorias && producto.categorias.length > 0) {
+          producto.categorias.slice(0, 3).forEach(cat => {
+            const div = document.createElement("div");
+            div.classList.add("input-group", "mb-2");
+            div.innerHTML = `
+              <input type="text" class="form-control categoria-input" name="categorias[]" value="${cat}" placeholder="Nueva categoría">
+              <button type="button" class="btn btn-outline-secondary eliminarCategoria">✕</button>
+            `;
+            categoriasContainer.appendChild(div);
+          });
+        }
+         // Si tienes esta relación
+      
+        const modal = new bootstrap.Modal(document.getElementById("modalEditarProducto"));
+        modal.show();
+      });
+
+      
 
       contenedor.appendChild(card);
     });
@@ -345,15 +379,23 @@ document.addEventListener("click", async function (event) {
 });
 
 
-
-// agregar 
-
-// Asegurarse de no agregar múltiples listeners
+// Agregar 
 const form = document.getElementById("formProducto");
 
-// Remueve cualquier listener previo para evitar múltiples ejecuciones
+// Elimina el listener anterior si existe
 form.removeEventListener("submit", handleFormSubmit);
 form.addEventListener("submit", handleFormSubmit);
+
+// Limita la selección de checkboxes a 3
+document.querySelectorAll('.categoria-checkbox').forEach(function (checkbox) {
+  checkbox.addEventListener('change', function () {
+    const checked = document.querySelectorAll('.categoria-checkbox:checked');
+    if (checked.length > 3) {
+      this.checked = false;
+      alert('❌ Solo puedes seleccionar hasta 3 categorías.');
+    }
+  });
+});
 
 async function handleFormSubmit(e) {
   e.preventDefault();
@@ -370,12 +412,11 @@ async function handleFormSubmit(e) {
   const precio = parseFloat(document.getElementById("precioProducto").value);
   const id_estado = 1;
 
-  const categoriasInputs = document.querySelectorAll(".categoria-input");
+  // Obtener categorías seleccionadas
+  const checkedCategorias = document.querySelectorAll(".categoria-checkbox:checked");
   const categoria = {};
-  categoriasInputs.forEach((input, index) => {
-    if (input.value.trim() !== "") {
-      categoria[`categoria${index + 1}`] = input.value.trim();
-    }
+  checkedCategorias.forEach((input, index) => {
+    categoria[`categoria${index + 1}`] = input.value.trim();
   });
 
   const imagenesInput = document.getElementById("imagenesProducto").files;
@@ -440,7 +481,7 @@ async function handleFormSubmit(e) {
       // 🔄 Recargar página tras éxito
       setTimeout(() => {
         location.reload();
-      }, 1000); // Espera 1 segundo para que el usuario vea la notificación
+      }, 1000);
 
     } else {
       console.error("❌ Error del servidor:", data);
@@ -452,3 +493,75 @@ async function handleFormSubmit(e) {
     alert("⚠️ No se pudo conectar al servidor.");
   }
 }
+
+// editar 
+document.getElementById("formEditarProducto").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const id = document.getElementById("editarIdProducto").value;
+
+  // Obtener id_vendedor desde localStorage
+  const idVendedor = parseInt(localStorage.getItem("id_vendedor"));
+  if (!idVendedor) {
+    alert("Error: No se encontró el ID del vendedor en localStorage.");
+    return;
+  }
+
+  // Producto
+  const producto = {
+    nombre: document.getElementById("editarNombreProducto").value,
+    descripcion: document.getElementById("editarDescripcionProducto").value,
+    precio: parseFloat(document.getElementById("editarPrecioProducto").value),
+    id_estado: 1,
+    id_vendedor: idVendedor
+  };
+
+  // Categorías
+  const categoriaInputs = document.querySelectorAll("#editarCategoriasContainer .categoria-input");
+  const categoria = {
+    categoria1: categoriaInputs[0]?.value || "",
+    categoria2: categoriaInputs[1]?.value || "",
+    categoria3: categoriaInputs[2]?.value || ""
+  };
+
+  // Imágenes
+  const archivos = document.getElementById("editarImagenesProducto").files;
+  const imagenes = {};
+
+  for (let i = 0; i < archivos.length && i < 3; i++) {
+    const nombre = archivos[i].name;
+    imagenes[`imagen${i + 1}`] = nombre; // corregido uso de template string
+  }
+
+  // Construir JSON final
+  const payload = {
+    producto,
+    categoria,
+    imagenes
+  };
+
+  try {
+    const response = await fetch(`http://localhost/microservicio_producto/routes/api.php?action=editarProductoConTodo&id_producto=${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert(data.mensaje || "Producto actualizado correctamente");
+
+      const modal = bootstrap.Modal.getInstance(document.getElementById("modalEditarProducto"));
+      modal.hide();
+      location.reload();
+    } else {
+      alert("Error al actualizar el producto: " + (data.mensaje || ""));
+    }
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+    alert("Error al conectar con el servidor.");
+  }
+});
+

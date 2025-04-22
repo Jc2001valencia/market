@@ -27,42 +27,63 @@ function obtenerProducto(id) {
 
 function actualizarDOMConDatos(producto) {
     document.querySelector("h1.h2").textContent = producto.nombre;
-    document.querySelector("p.h3.py-2").textContent = `$${producto.precio.toLocaleString()}`;
-    document.querySelector("p.py-2").innerHTML = `
-        <i class="fa fa-star text-warning"></i>
-        <i class="fa fa-star text-warning"></i>
-        <i class="fa fa-star text-warning"></i>
-        <i class="fa fa-star text-warning"></i>
-        <i class="fa fa-star text-secondary"></i>
-        <span class="list-inline-item text-dark">Valoración 4.8 | 36 Comentarios</span>`;
-    
+    document.querySelector("p.h3.py-2").textContent = `$${producto.precio.toLocaleString()}`;    
     document.querySelector(".text-muted strong").textContent = "Marca Desconocida"; 
     document.querySelector("h6 + p").textContent = producto.descripcion;
-    document.querySelector("#product-detail").src = `../../assets/img/${producto.imagen}`;
+    const imagenes = producto.imagenes; // del JSON
+    document.querySelector("#product-detail").src = `../../assets/img/${imagenes[0]}`;
+    document.querySelector("#img1").src = `../../assets/img/${imagenes[0]}`;
+    document.querySelector("#img2").src = `../../assets/img/${imagenes[1]}`;
+    document.querySelector("#img3").src = `../../assets/img/${imagenes[2]}`;
+    
     document.querySelector("#product-detail").alt = producto.nombre;
 
     actualizarEnlaceWhatsApp(producto);
     actualizarCategorias(producto);
     actualizarVendedor(producto);
+
+    
 }
+
+
+  
 
 function actualizarEnlaceWhatsApp(producto) {
     const enlaceWhatsApp = document.querySelector(".btn-lg");
-    const numeroWhatsApp = "tu-número-de-WhatsApp";
+    const numeroWhatsApp = "573001234567"; // Reemplaza con tu número
 
-    const mensaje = `¡Hola! Estoy interesado en comprar un producto.%0A%0A- Producto: ${producto.nombre}%0A- Precio: $${producto.precio.toLocaleString()}%0A%0APor favor, respóndeme con los detalles para proceder con la compra.`;
+    // Tomamos la primera imagen
+    const imagenPrincipal = producto.imagenes && producto.imagenes.length > 0
+        ? `https://tusitio.com/assets/img/${producto.imagenes[0]}`  // Reemplaza por tu dominio si es necesario
+        : "No disponible";
+
+    // Creamos un mensaje más completo
+    const mensaje = `
+¡Hola! Estoy interesado en uno de los productos de tu tienda. Me gustaría recibir más información. Aquí te dejo los detalles:
+
+🛍️ *Producto*: ${producto.nombre}
+💵 *Precio*: $${producto.precio.toLocaleString()}
+📄 *Descripción*: ${producto.descripcion || "No disponible"}
+🖼️ *Imagen*: ${imagenPrincipal}
+
+¿Podrías darme más detalles sobre disponibilidad, tiempos de entrega y formas de pago?
+
+¡Gracias!
+    `.trim();
+
+    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
     
-    const urlWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${mensaje}`;
     enlaceWhatsApp.parentElement.href = urlWhatsApp;
 }
+
 
 function actualizarCategorias(producto) {
     const categoriasContainer = document.getElementById("etiquetas");
     if (categoriasContainer) {
         categoriasContainer.innerHTML = `
-            <div id="categ"><a href="">/ ${producto.categoria1 || ''}</a></div>
-            <div id="categ"><a href="">/ ${producto.categoria2 || ''}</a></div>
-            <div id="categ"><a href="">/ ${producto.categoria3 || ''}</a></div>
+            <div id="categ"><a href="">/ ${producto.categorias[0] || ''}</a></div>
+            <div id="categ"><a href="">/ ${producto.categorias[1] || ''}</a></div>
+            <div id="categ"><a href="">/ ${producto.categorias[2] || ''}</a></div>
         `;
     } else {
         console.error("No se encontró el contenedor de etiquetas");
@@ -85,7 +106,8 @@ function actualizarVendedor(producto) {
                                     ${producto.vendedor_telefono || 'No disponible'} <i class="fa fa-whatsapp"></i>
                                 </a>
                             </p>
-                            <img src="http://localhost/microservicio_producto/images/${producto.vendedor_imagen || 'default.jpg'}" alt="Imagen del vendedor" style="width: 150px; height: auto;">
+                            <img src="../../porfiles/${producto.vendedor_imagen}" alt="Imagen del vendedor" style="width: 150px; height: auto;">
+
                             
                             <div class="seller-rating">
                                 <h3>Calificación:</h3>
