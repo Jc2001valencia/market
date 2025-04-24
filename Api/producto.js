@@ -89,58 +89,103 @@ function actualizarCategorias(producto) {
         console.error("No se encontró el contenedor de etiquetas");
     }
 }
-
 function actualizarVendedor(producto) {
     const vendedorContainer = document.getElementById("vendedor");
-    if (vendedorContainer) {
-        vendedorContainer.innerHTML = `
-            <div class="seller-info">
-                <h2 class="h2">Información del Vendedor</h2>
-                <div class="vendedordiv">
-                    <div class="datos">
-                        <div class="card_d">
-                            <p><strong>Nombre:</strong> ${producto.vendedor_nombre || 'No disponible'}</p>
-                            <p>
-                                <strong>WhatsApp:</strong>
-                                <a href="https://wa.me/${(producto.vendedor_telefono || '').replace(/\s+/g, '')}" target="_blank" style="color: #25D366;">
-                                    ${producto.vendedor_telefono || 'No disponible'} <i class="fa fa-whatsapp"></i>
-                                </a>
-                            </p>
-                            <img src="../../porfiles/${producto.vendedor_imagen}" alt="Imagen del vendedor" style="width: 150px; height: auto;">
 
-                            
-                            <div class="seller-rating">
-                                <h3>Calificación:</h3>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star checked"></span>
-                                <span class="fa fa-star"></span>
-                                <span class="fa fa-star"></span>
-                                <p>
-                                    <a href="./productos_tienda.html" style="color: #ff3366;">Ver todos los productos</a>
-                                </p>
-                            </div>
+    if (!vendedorContainer) {
+        console.error("No se encontró el contenedor del vendedor");
+        return;
+    }
 
+    // Datos del vendedor
+    const nombreVendedor = producto.vendedor_nombre || 'No disponible';
+    const telefonoVendedor = (producto.vendedor_telefono || '').replace(/\s+/g, '');
+    const ubicacionVendedor = producto.vendedor_ubicacion || 'No disponible';
+    const imagenVendedor = producto.vendedor_imagen ? `../../porfiles/${producto.vendedor_imagen}` : '';
+
+    const mensaje = encodeURIComponent(
+        `¡Hola! Estoy interesado en comprar un producto.\n\n- Producto: ${producto.nombre}\n- Precio: $${producto.precio.toLocaleString()}\n\nPor favor, respóndeme con los detalles para proceder con la compra.`
+    );
+
+    // HTML generado
+    vendedorContainer.innerHTML = `
+        <div class="seller-info">
+            <h2 class="h2">Información del Vendedor</h2>
+            <div class="vendedordiv">
+                <div class="datos">
+                    <div class="card_d">
+                        <p><strong>Nombre:</strong> ${nombreVendedor}</p>
+                        <p>
+                            <strong>WhatsApp:</strong>
                             <a id="whatsapp-link" target="_blank">
-                                <button type="button" class="btn btn-success btn-lg">Comprar por WhatsApp</button>
+                                <button type="button" class="btn btn-success btn-sm">Contactar por WhatsApp</button>
                             </a>
+                        </p>
+                        ${imagenVendedor ? `<img src="${imagenVendedor}" alt="Imagen del vendedor" style="width: 150px; height: auto;">` : ''}
+
+                        <div class="seller-rating">
+                            <h3>Calificación:</h3>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
                         </div>
-                    </div>
-                    <div class="map">
-                        <h3><p><strong>Dirección:</strong> ${producto.vendedor_ubicacion || 'No disponible'}</p></h3>
-                        <iframe 
-                            src="https://www.google.com/maps?q=${encodeURIComponent(producto.vendedor_ubicacion || '')}&output=embed"
-                            width="600" height="350" style="border:0;" allowfullscreen loading="lazy">
-                        </iframe>
+
+                        <p>
+                            <a href="./productos_tienda.html?vendedor=${producto.id_vendedor}&nombre=${encodeURIComponent(nombreVendedor)}" style="color: #ff3366;">
+                                Ver todos los productos
+                            </a>
+                        </p>
                     </div>
                 </div>
+                <div class="map">
+                    <h3><p><strong>Dirección:</strong> ${ubicacionVendedor}</p></h3>
+                    <iframe 
+                        src="https://www.google.com/maps?q=${encodeURIComponent(producto.vendedor_ubicacion || '')}&output=embed"
+                        width="600" height="350" style="border:0;" allowfullscreen loading="lazy">
+                    </iframe>
+                </div>
             </div>
-        `;
-        
-        const mensaje = `¡Hola! Estoy interesado en comprar un producto.%0A%0A- Producto: ${producto.nombre}%0A- Precio: $${producto.precio.toLocaleString()}%0A%0APor favor, respóndeme con los detalles para proceder con la compra.`;
-        
-        document.getElementById("whatsapp-link").href = `https://api.whatsapp.com/send?phone=${(producto.vendedor_telefono || '').replace(/\s+/g, '')}&text=${mensaje}`;
-    } else {
-        console.error("No se encontró el contenedor del vendedor");
-    }
+        </div>
+    `;
+
+    // Configura el enlace de WhatsApp
+    document.getElementById("whatsapp-link").href = `https://api.whatsapp.com/send?phone=${telefonoVendedor}&text=${mensaje}`;
 }
+
+
+
+   
+  
+
+
+document.getElementById('formComentario').addEventListener('submit', function (e) {
+    e.preventDefault(); // ⛔ Detiene la recarga
+
+    const nombre = document.getElementById('nombre').value;
+    const mensaje = document.getElementById('mensaje').value;
+    const calificacion = document.getElementById('calificacion').value;
+
+    const estrellas = '★'.repeat(calificacion);
+
+    const nuevoComentario = document.createElement('div');
+    nuevoComentario.className = 'col-12 col-md-3 mb-4';
+    nuevoComentario.innerHTML = `
+      <div class="comentario-card">
+        <p class="nombre">${nombre}</p>
+        <p class="mensaje">${mensaje}</p>
+        <p class="calificacion">Calificación: ${estrellas}</p>
+      </div>
+    `;
+
+    document.querySelector('#comentarios .row').appendChild(nuevoComentario);
+
+    // Limpiar el formulario
+    this.reset();
+
+    // Cerrar el modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('modalComentario'));
+    if (modal) modal.hide();
+  });;
+

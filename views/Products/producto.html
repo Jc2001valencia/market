@@ -52,7 +52,7 @@
 <nav class="navbar navbar-expand-lg navbar-light shadow">
     <div class="container d-flex justify-content-between align-items-center">
 
-        <a class="navbar-brand text-success logo h1 align-self-center" href="../index.html">
+        <a class="navbar-brand text-success logo h1 align-self-center" href="../../index.html">
             <img src="../../assets/img/logo.png" alt="" style="width: 200px;">
         </a>
 
@@ -64,7 +64,7 @@
             <div class="flex-fill">
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html">Market</a>
+                        <a class="nav-link" href="../../index.html">Market</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -80,10 +80,10 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html#productos">Productos</a>
+                        <a class="nav-link" href="../../index.html#productos">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../views/contacto.html">Contacto</a>
+                        <a class="nav-link" href="../../views/contacto.html">Contacto</a>
                     </li>
                 </ul>
             </div>
@@ -280,9 +280,9 @@
                 <span class="fa fa-star checked"></span>
                 <span class="fa fa-star"></span>
                 <span class="fa fa-star"></span>
-                <p>
-                    <a href="./productos_tienda.html" style="color: #ff3366;">Ver todos los productos</a>
-                </p>
+              <!-- NO uses <p> para envolver divs -->
+<div id="contenedor-boton"></div>
+
 
               </div> 
 
@@ -343,6 +343,47 @@
     </div>
   </div>
 </section>
+
+<!-- Botón para agregar comentario -->
+<div class="text-center mb-4">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalComentario">Agregar Comentario</button>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modalComentario" tabindex="-1" aria-labelledby="modalComentarioLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form id="formComentario" class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalComentarioLabel">Nuevo Comentario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombre" required>
+          </div>
+          <div class="mb-3">
+            <label for="mensaje" class="form-label">Mensaje</label>
+            <textarea class="form-control" id="mensaje" rows="3" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="calificacion" class="form-label">Calificación (1 a 5 estrellas)</label>
+            <select class="form-select" id="calificacion" required>
+              <option value="1">★</option>
+              <option value="2">★★</option>
+              <option value="3">★★★</option>
+              <option value="4">★★★★</option>
+              <option value="5">★★★★★</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button onclick="location.reload()">Enviar</button> <!-- ⚠️ Esto causaría recarga -->
+        </div>
+      </form>
+    </div>
+  </div>
+  
 
 
 
