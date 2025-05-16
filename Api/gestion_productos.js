@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("editarPrecioProducto").value = producto.precio;
         
         // Si quieres llenar las categorías, deberías construir inputs dentro de este contenedor:
-        const categoriasContainer = document.getElementById("editarCategoriasContainer");
+        const categoriasContainer = document.getElementById("checkboxCategorias");
         categoriasContainer.innerHTML = ""; // Limpia lo anterior
         
         if (producto.categorias && producto.categorias.length > 0) {
